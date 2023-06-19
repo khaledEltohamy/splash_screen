@@ -1,5 +1,6 @@
 name: intro_splash_screens
 description: A new Flutter project.
+homepage: https://github.com/khaledEltohamy/splash_screen
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 
@@ -29,9 +30,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_hooks: ^0.9.0 
-  multiple_splash_screens:
-   path: packages/multiple_splash_screens
+
+  # multiple_splash_screens:
+  #  path: packages/multiple_splash_screens
 
 
   # The following adds the Cupertino Icons font to your application.
