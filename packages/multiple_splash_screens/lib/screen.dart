@@ -46,10 +46,7 @@ _firstIntroLogoScreen(Widget child,
     child: Container(
       width: double.infinity,
       decoration: BoxDecoration(color: backgroundColor ?? Colors.white),
-      child: Opacity(
-        opacity: 1,
-        child: child,
-      ),
+      child: child,
     ),
   );
 }
@@ -82,11 +79,10 @@ _introTextScreen(
   double? bottom,
   double? height,
 }) {
+  bool value = showLogoText.value;
   return AnimatedPositioned(
-    height: showLogoText.value ? height ?? 90 : 0,
-    bottom: showLogoText.value
-        ? bottom ?? MediaQuery.of(context).size.height * 0.4
-        : 0,
+    height: value ? height ?? 90 : 0,
+    bottom: value ? bottom ?? MediaQuery.of(context).size.height * 0.4 : 0,
     right: right ?? 40,
     left: left ?? 40,
     duration: const Duration(seconds: 1),

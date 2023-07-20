@@ -1,7 +1,7 @@
 name: multiple_splash_screens
-description: A new Flutter package project.
-version: 0.0.1
-homepage:
+description: splash screen
+version: 0.0.2
+homepage: https://github.com/khaledEltohamy/splash_screen
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
   
 
 dev_dependencies:
