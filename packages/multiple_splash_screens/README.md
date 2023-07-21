@@ -13,6 +13,10 @@ and the Flutter guide for
 
 
 
+https://github.com/khaledEltohamy/splash_screen/assets/107731665/84f9e727-599d-4282-b0e2-c445646c8744
+
+
+
 ## Features
 
 
