@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-![demo](https://github.com/khaledEltohamy/splash_screen/assets/107731665/b7cbf57d-abdc-4d9f-b98a-5d726f41402d?raw=true)
+![demo](https://github.com/khaledEltohamy/splash_screen/blob/main/packages/multiple_splash_screens/doc/demo.gif?raw=true)
 
 
 

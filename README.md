@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 
-![demo](https://github.com/khaledEltohamy/splash_screen/assets/107731665/53f839ab-7654-4f0c-960c-99f67dd40b0a)
+![demo](https://github.com/khaledEltohamy/splash_screen/blob/main/packages/multiple_splash_screens/doc/demo.gif?raw=true)
 
 
 This project is a starting point for a Flutter application.
