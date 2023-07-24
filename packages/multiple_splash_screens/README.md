@@ -11,9 +11,10 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
+![demo](https://github.com/khaledEltohamy/splash_screen/assets/107731665/b7cbf57d-abdc-4d9f-b98a-5d726f41402d)
 
 
-https://github.com/khaledEltohamy/splash_screen/assets/107731665/84f9e727-599d-4282-b0e2-c445646c8744
+
 
 
 
