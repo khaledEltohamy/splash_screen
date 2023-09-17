@@ -9,13 +9,22 @@ class Example extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: MainIntroScreen(
+        useRockScreen: true,
+        rockColors: [Colors.blue.shade900, Colors.blue.shade600, Colors.blue],
+        waveColors: const [
+          Color(0xFFFFA27D),
+          Color.fromARGB(255, 240, 102, 47),
+          Color.fromARGB(255, 88, 36, 15),
+        ],
         // first phase your application
         firstScreen: SplashModel(
+            directionAnimation: DirectionAnimation.VERTICAL,
             duration: const Duration(seconds: 2),
             child: const Center(child: FlutterLogo())),
         // Middle screen to set name your application
         secondScreen: SplashModel(
             duration: const Duration(seconds: 3),
+            directionAnimation: DirectionAnimation.VERTICAL,
             child: const Text("Application name",
                 style: TextStyle(
                     fontWeight: FontWeight.w900,

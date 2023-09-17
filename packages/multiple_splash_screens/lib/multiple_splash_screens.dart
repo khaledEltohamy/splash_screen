@@ -3,9 +3,15 @@ library multiple_splash_screens;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:multiple_splash_screens/rock_screen.dart';
 import 'package:multiple_splash_screens/splash_model.dart';
+import 'dart:math';
+
 part 'start_timer.dart';
 part 'screen.dart';
+part 'welcomeScreen_buttton.dart';
+part 'alpha_screen.dart';
+part 'wave_screen.dart';
 
 ValueNotifier<bool> showShadowLogoScreen = ValueNotifier(true);
 ValueNotifier<bool> showLogoText = ValueNotifier(false);
@@ -21,6 +27,9 @@ class MainIntroScreen extends StatefulWidget {
   final SplashModel fiveScreen;
   final Widget startButtonChild;
   final Widget startIconButton;
+  final Function()? actionButton;
+  final bool? useWaveScreen, useRockScreen;
+  final List<Color>? waveColors, rockColors;
 
   const MainIntroScreen(
       {super.key,
@@ -30,7 +39,12 @@ class MainIntroScreen extends StatefulWidget {
       required this.fourthScreen,
       required this.fiveScreen,
       required this.startButtonChild,
-      required this.startIconButton});
+      required this.startIconButton,
+      this.actionButton,
+      this.useWaveScreen,
+      this.useRockScreen,
+      this.waveColors,
+      this.rockColors});
 
   @override
   State<MainIntroScreen> createState() => _MainIntroScreenState();
@@ -54,96 +68,46 @@ class _MainIntroScreenState extends State<MainIntroScreen> {
       body: Stack(children: [
         ValueListenableBuilder(
             valueListenable: showShadowLogoScreen,
-            builder: (context, value, child) {
-              return value
-                  ? _firstIntroLogoScreen(widget.firstScreen.child,
-                      backgroundColor: widget.firstScreen.backgroundColor)
-                  : Container();
-            }),
+            builder: (context, value, child) => AlphaScreen(
+                widget.firstScreen.child,
+                backgroundColor: widget.firstScreen.backgroundColor)),
+        widget.useWaveScreen != null && widget.useWaveScreen == true
+            ? WaveScreen(
+                colors: widget.waveColors ??
+                    const [
+                      Color(0xFFFFA27D),
+                      Color.fromARGB(255, 240, 102, 47),
+                      Color.fromARGB(255, 88, 36, 15),
+                    ],
+              )
+            : Container(),
+        widget.useRockScreen != null && widget.useRockScreen == true
+            ? RockScreen(
+                colors: widget.rockColors ??
+                    [Colors.blue.shade900, Colors.blue.shade600, Colors.blue])
+            : Container(),
         ValueListenableBuilder(
             valueListenable: showLogoText,
             builder: (context, value, child) {
-              return _introTextScreen(
-                widget.secondScreen.child,
-                context,
-              );
+              return _introTextScreen(widget.secondScreen.child, context,
+                  direction: widget.secondScreen.directionAnimation ??
+                      DirectionAnimation.VERTICAL);
             }),
         ValueListenableBuilder(
             valueListenable: showLogoScreen,
             builder: (context, value, child) {
               return _introLogoScreen(widget.thirdScreen.child, context);
             }),
-        _startScreen(
-          context,
+        WelcomeScreenWithButton(
           body: widget.fourthScreen.child,
           iconChild: widget.startIconButton,
           afterChildButton: widget.startButtonChild,
           beforeChildButton: widget.startIconButton,
           backgroundColor: widget.fourthScreen.backgroundColor,
           colorButton: widget.fourthScreen.colorButton,
-        )
+          onTap: widget.actionButton ?? () => print(""),
+        ),
       ]),
     );
   }
-}
-
-_startScreen(
-  BuildContext context, {
-  Widget? shadowImage,
-  double? height,
-  double? top,
-  Color? backgroundColor = Colors.white,
-  Widget? body,
-  Widget? afterChildButton,
-  Widget? beforeChildButton,
-  Widget? iconChild,
-  Color? colorButton = Colors.red,
-  double? maxWidthButton,
-  double? mainWidthButton,
-  double? heightButton,
-  EdgeInsetsGeometry? padding = const EdgeInsets.symmetric(horizontal: 60),
-}) {
-  return ValueListenableBuilder<bool>(
-    valueListenable: showWelcomeScreen,
-    builder: (context, value, child) => AnimatedPositioned(
-      height: value ? height ?? MediaQuery.of(context).size.height : 100,
-      width: MediaQuery.of(context).size.width,
-      curve: Curves.fastOutSlowIn,
-      duration: const Duration(seconds: 2),
-      top: value ? 0 : top ?? MediaQuery.of(context).size.height,
-      child: Container(
-        color: backgroundColor,
-        padding: padding,
-        child: Stack(children: [
-          Positioned.fill(child: shadowImage ?? Container()),
-          Positioned.fill(
-              bottom: 0,
-              child: Column(children: [
-                Expanded(child: body ?? Container()),
-                ValueListenableBuilder<bool>(
-                    valueListenable: showButtonWelcomeScreen,
-                    builder: (context, value, child) => InkWell(
-                          onTap: () {},
-                          child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 400),
-                              margin: const EdgeInsets.symmetric(vertical: 40),
-                              decoration: BoxDecoration(
-                                color: colorButton,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              constraints: BoxConstraints(
-                                  minWidth: value ? 200 : 60,
-                                  maxWidth: value ? 300 : 80,
-                                  minHeight: 42,
-                                  maxHeight: 54),
-                              child: Center(
-                                  child: !value
-                                      ? beforeChildButton
-                                      : afterChildButton)),
-                        ))
-              ]))
-        ]),
-      ),
-    ),
-  );
 }

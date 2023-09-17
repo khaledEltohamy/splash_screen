@@ -1,5 +1,5 @@
 name: intro_splash_screens
-description: A new Flutter project.
+description: splash screen plugin.
 homepage: https://github.com/khaledEltohamy/splash_screen
 
 # The following line prevents the package from being accidentally published to
@@ -20,7 +20,7 @@ homepage: https://github.com/khaledEltohamy/splash_screen
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.2 <3.0.0'
+  sdk: '>=2.19.2 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions

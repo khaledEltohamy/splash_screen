@@ -1,56 +1,5 @@
 part of multiple_splash_screens;
 
-class FirstScreen extends StatelessWidget {
-  final Widget child;
-  final double? right;
-  final double? left;
-  final double? top;
-  final double? bottom;
-  final Color? backgroundColor;
-  const FirstScreen(
-      {super.key,
-      required this.child,
-      this.right,
-      this.left,
-      this.top,
-      this.bottom,
-      this.backgroundColor});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Stack(children: [
-          ValueListenableBuilder(
-              valueListenable: showShadowLogoScreen,
-              builder: (context, value, childValue) {
-                return value ? _firstIntroLogoScreen(child) : Container();
-              }),
-        ]),
-      ),
-    );
-  }
-}
-
-_firstIntroLogoScreen(Widget child,
-    {double? right,
-    double? left,
-    double? top,
-    double? bottom,
-    Color? backgroundColor}) {
-  return Positioned.fill(
-    right: right ?? 0,
-    left: left ?? 0,
-    top: top ?? 0,
-    bottom: bottom ?? 0,
-    child: Container(
-      width: double.infinity,
-      decoration: BoxDecoration(color: backgroundColor ?? Colors.white),
-      child: child,
-    ),
-  );
-}
-
 _introLogoScreen(
   Widget child,
   BuildContext context, {
@@ -59,11 +8,10 @@ _introLogoScreen(
   double? top,
   double? height,
 }) {
+  top ??= MediaQuery.of(context).size.height * 0.3;
   return AnimatedPositioned(
     height: showLogoScreen.value ? height ?? 100 : 0,
-    top: showLogoScreen.value
-        ? top ?? MediaQuery.of(context).size.height * 0.3
-        : 0,
+    top: showLogoScreen.value ? top : 0,
     right: right ?? 40,
     left: left ?? 40,
     duration: const Duration(seconds: 1),
@@ -74,18 +22,46 @@ _introLogoScreen(
 _introTextScreen(
   Widget child,
   BuildContext context, {
-  double? right,
-  double? left,
-  double? bottom,
+  double? right = 40,
+  required DirectionAnimation direction,
+  double? left = 40,
+  double? bottom = 90,
+  double? width,
+  double? top,
   double? height,
 }) {
   bool value = showLogoText.value;
-  return AnimatedPositioned(
-    height: value ? height ?? 90 : 0,
-    bottom: value ? bottom ?? MediaQuery.of(context).size.height * 0.4 : 0,
-    right: right ?? 40,
-    left: left ?? 40,
-    duration: const Duration(seconds: 1),
-    child: child,
-  );
+  bottom ??= MediaQuery.of(context).size.height * 0.4;
+  top ??= MediaQuery.of(context).size.height * 0.5;
+  right ??= MediaQuery.of(context).size.width * 0.5;
+  left ??= MediaQuery.of(context).size.width * 0.5;
+  width ??= MediaQuery.of(context).size.width * 0.8;
+  height ??= MediaQuery.of(context).size.height * 0.4;
+  switch (direction) {
+    case DirectionAnimation.HORIZONTAL:
+      {
+        return AnimatedPositioned(
+          width: value ? width : 0,
+          right: value ? right : 0,
+          bottom: value ? bottom : 0,
+          top: value ? top : 0,
+          duration: const Duration(seconds: 1),
+          child: child,
+        );
+      }
+    case DirectionAnimation.VERTICAL:
+      {
+        return AnimatedPositioned(
+          height: value ? height : 0,
+          bottom: value ? bottom : 0,
+          right: value ? right : 0,
+          left: value ? left : 0,
+          duration: const Duration(seconds: 1),
+          child: child,
+        );
+      }
+    default:
+  }
 }
+
+enum DirectionAnimation { HORIZONTAL, VERTICAL }
